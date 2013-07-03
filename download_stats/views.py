@@ -22,12 +22,14 @@ class DownloadView(View):
         # if not, we know, that someone tried to get some files from below the
         # media level. The files above the media root should be accessible
         # by default anyway
-        if not self.full_file_path.startswith(os.path.realpath(
-                settings.MEDIA_ROOT)):
-            raise Http404
         self.full_file_url = os.path.join(settings.MEDIA_URL,
                                           self.requested_file)
-        if not self.requested_file or not os.path.exists(self.full_file_path):
+        if (
+                not self.full_file_path.startswith(os.path.realpath(
+                    settings.MEDIA_ROOT))
+                or not self.requested_file
+                or not os.path.exists(self.full_file_path)
+                or '..' in self.requested_file):
             raise Http404
 
         return super(DownloadView, self).dispatch(request, *args, **kwargs)
