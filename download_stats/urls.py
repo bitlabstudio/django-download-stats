@@ -7,6 +7,7 @@ from .views import DownloadView
 
 urlpatterns = patterns(
     '',
-    url(r'{}/'.format(DOWNLOAD_URL.replace('/', '')), DownloadView.as_view(),
+    url(r'{}/(?P<requested_file>.+)'.format(DOWNLOAD_URL.replace('/', '')),
+        DownloadView.as_view(),
         name='download_view'),
 )

@@ -14,11 +14,11 @@ class DownloadViewTestCase(ViewTestMixin, TestCase):
     """Tests for the ``DownloadView`` view class."""
     longMessage = True
 
-    def get_data_payload(self):
-        return self.get_data  # defined in setUp
-
     def get_view_name(self):
         return 'download_view'
+
+    def get_view_kwargs(self):
+        return self.view_kwargs  # defined in setUp method
 
     def setUp(self):
         # set up media folder and download temp folder. The test requirements
@@ -34,7 +34,7 @@ class DownloadViewTestCase(ViewTestMixin, TestCase):
             pass
         shutil.copy(self.req_file, self.temp_folder)
 
-        self.get_data = {'file': 'tmp/test_requirements.txt'}
+        self.view_kwargs = {'requested_file': 'test_requirements.txt'}
 
     def tearDown(self):
         shutil.rmtree(self.temp_folder)
@@ -54,8 +54,8 @@ class DownloadViewTestCase(ViewTestMixin, TestCase):
         self.assertEqual(stat.count, 2, msg=(
             'The view set the wrong amount of downloads'))
 
-        self.get_data.update({'file': 'not_existing_file.xyz'})
+        self.view_kwargs.update({'requested_file': 'not_existing_file.xyz'})
         self.is_not_callable()
 
-        self.get_data = {'file': '../../no_valid.file'}
+        self.view_kwargs = {'requested_file': '../../no_valid.file'}
         self.is_not_callable(message='This file should not be accessable.')
