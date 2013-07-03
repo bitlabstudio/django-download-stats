@@ -22,12 +22,39 @@ Add ``download_stats`` to your ``INSTALLED_APPS``::
         'download_stats',
     )
 
+Define ``DOWNLOAD_URL`` in your settings if you want to override the default
+of ``/downloads/``::
+
+    DOWNLOAD_URL = "/my-download/"
+
+
 Add the ``download_stats`` URLs to your ``urls.py``::
 
     urlpatterns = patterns('',
         ...
-        url(r'^downloads/', include('download_stats.urls')),
+        url(r'^myurlname/', include('download_stats.urls')),
     )
+
+An important note is, that the ``download_stats.urls`` will automatically
+prepend the ``DOWNLOAD_URL`` setting. So the following urls example would
+result in urls formatted like ``example.com/downloads/filename.jpg``
+considering if you would leave the ``DOWNLOAD_URL`` on its default value
+``/downloads/``.
+
+    urlpatterns = patterns('',
+        ...
+        url(r'^', include('download_stats.urls')),
+    )
+
+Why this setting anyway then?
+Because now you will add the context processor::
+
+    TEMPLATE_CONTEXT_PROCESSORS = [
+        ...
+        'download_stats.context_processors.download_url',
+    ]
+
+This will add the ``DOWNLOAD_URL`` variable to all templates.
 
 Don't forget to migrate your database::
 
@@ -37,8 +64,15 @@ Don't forget to migrate your database::
 Usage
 -----
 
-TODO: Describe usage or point to docs. Also describe available settings and
-templatetags.
+With our context processor adding ``DOWNLOAD_URL`` you can basically use the
+view that comes with download stats just like you would do it before, just
+replacing ``MEDIA_URL`` with ``DOWNLOAD_URL``::
+
+    <a href="{{ DOWNLOAD_URL }}files/myfile.pdf">Click to download my file</a>
+
+It will then automatically count how often ``files/myfile.pdf`` was clicked.
+
+You can then view the individual file counts in the download stats admin.
 
 
 Contribute

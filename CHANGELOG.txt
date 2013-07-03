@@ -1,4 +1,10 @@
 === (ongoing) ===
 
+- Added actual download view
+- Added context processor
+- Added default settings
+- Added the DownloadStatistic model
+
+=== 0.1 ===
 
 - Initial commit
