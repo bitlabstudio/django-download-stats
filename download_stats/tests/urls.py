@@ -2,7 +2,7 @@
 from django.conf import settings
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
-from django.http import HttpResponse
+from django.views.generic import TemplateView
 
 
 admin.autodiscover()
@@ -10,7 +10,9 @@ admin.autodiscover()
 urlpatterns = patterns(
     '',
     url(r'^admin/', include(admin.site.urls)),
-    url('^$', lambda r: HttpResponse('<a href="/downloads/?file=../test_requirements.txt">TEST</a>'), name='dummy_home'),  # NOQA
+    url('^$',
+        TemplateView.as_view(template_name='dummy_home.html'),
+        name='dummy_home'),
     url(r'^', include('download_stats.urls')),
 )
 

@@ -26,6 +26,22 @@ STATICFILES_DIRS = (
     os.path.join(APP_ROOT, 'static'),
 )
 
+TEMPLATE_DIRS = (
+    os.path.join(APP_ROOT, 'templates'),
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = [
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.core.context_processors.request",
+    "django.contrib.messages.context_processors.messages",
+    'download_stats.context_processors.download_url',
+]
+
 COVERAGE_REPORT_HTML_OUTPUT_DIR = os.path.join(
     os.path.join(APP_ROOT, 'tests/coverage'))
 COVERAGE_MODULE_EXCLUDES = [
@@ -51,6 +67,7 @@ INTERNAL_APPS = [
 ]
 
 INSTALLED_APPS = EXTERNAL_APPS + INTERNAL_APPS
+
 COVERAGE_MODULE_EXCLUDES += EXTERNAL_APPS
 
 SECRET_KEY = 'foobar'
