@@ -38,7 +38,7 @@ def read(fname):
         return ''
 
 setup(
-    name="Django download stats",
+    name="django-download-stats",
     version=app.__version__,
     description=read('DESCRIPTION'),
     long_description=read('README.rst'),
