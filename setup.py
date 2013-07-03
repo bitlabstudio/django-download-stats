@@ -61,5 +61,6 @@ setup(
         'flake8',
         'fabric',
         'factory-boy<2.0.0',
+        'django-libs',
     ],
 )
