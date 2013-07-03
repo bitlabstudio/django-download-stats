@@ -56,3 +56,6 @@ class DownloadViewTestCase(ViewTestMixin, TestCase):
 
         self.get_data.update({'file': 'not_existing_file.xyz'})
         self.is_not_callable()
+
+        self.get_data = {'file': '../../no_valid.file'}
+        self.is_not_callable(message='This file should not be accessable.')
