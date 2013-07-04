@@ -32,6 +32,5 @@ class DownloadView(View):
         # file, so only on creation we would trigger an additional query
         if not DownloadStatistic.objects.filter(
                 download_url=self.full_file_path).update(count=F('count')+1):
-            DownloadStatistic.objects.create(download_url=self.full_file_path,
-                                             count=1)
+            DownloadStatistic.objects.create(download_url=self.full_file_path)
         return response

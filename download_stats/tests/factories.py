@@ -9,4 +9,3 @@ class DownloadStatisticFactory(factory.Factory):
     FACTORY_FOR = DownloadStatistic
 
     download_url = factory.Sequence(lambda n: 'url-{}'.format(n))
-    count = 10

@@ -34,7 +34,7 @@ class DownloadViewTestCase(ViewTestMixin, TestCase):
             pass
         shutil.copy(self.req_file, self.temp_folder)
 
-        self.view_kwargs = {'requested_file': 'test_requirements.txt'}
+        self.view_kwargs = {'requested_file': 'tmp/test_requirements.txt'}
 
     def tearDown(self):
         shutil.rmtree(self.temp_folder)

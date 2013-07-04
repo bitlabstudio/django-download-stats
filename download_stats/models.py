@@ -19,6 +19,7 @@ class DownloadStatistic(models.Model):
 
     count = models.PositiveIntegerField(
         verbose_name=_('Count'),
+        default=1,
     )
 
     def __unicode__(self):
